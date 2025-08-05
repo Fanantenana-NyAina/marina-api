@@ -4,12 +4,14 @@ import { execFile } from "child_process";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(express.json())
+
 app.get("/", (req, res) => {
   res.send("marina's API !");
 });
 
-app.get("/marina", (req, res) => {
-  const expression = req.query.prop;
+app.post("/marina", (req, res) => {
+  const expression = req.body.prop;
 
   if (!expression) {
     return res.status(400).json({ error: "<prop> argument needed" });
@@ -30,5 +32,5 @@ app.get("/marina", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Serveur lancé sur http://localhost:${PORT}`);
+  console.log(`Server launched at http://localhost:${PORT}`);
 });
